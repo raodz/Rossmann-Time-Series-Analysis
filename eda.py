@@ -15,6 +15,7 @@ df['Day'] = df['Date'].dt.day
 df['Month'] = df['Date'].dt.month
 df['Year'] = df['Date'].dt.year
 
+
 print(df.head())
 
 print('Braki danych w sales:')
