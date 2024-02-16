@@ -19,15 +19,14 @@ The project utilizes several popular Python libraries, including:
 - `data/`: Directory containing input data.
 - `notebooks/`: Directory containing Jupyter notebooks with exploratory analysis and time series modeling.
 - `scripts/`: Directory containing helper Python scripts.
-- `models/`: Directory containing saved models.
+- `src/`: Directory containing source code for data processing and modelling.
 - `requirements.txt`: File with all project requirements.
 - `README.md`: File containing project description.
-- `LICENSE`: File containing project license.
 
 ## Instructions
 1. Download the data from [Kaggle](https://www.kaggle.com/competitions/rossmann-store-sales/overview) and place it in the `data/` directory.
 2. Run the Jupyter notebooks from the `notebooks/` directory to explore the data and perform time series modeling.
-3. Customize the models according to your needs and optionally save them in the `models/` directory using the scripts from the `scripts/` directory.
+3. Customize the models according to your needs using the scripts from the `scripts/` directory.
 
 ## Authors
 This project was created by [Rafał Odziemski]([link to GitHub or other platform profile](https://github.com/raodz)).
