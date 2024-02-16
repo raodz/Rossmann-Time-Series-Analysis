@@ -1,4 +1,4 @@
-from models.prepro import *
+from models.data import *
 
 data_file = 'train.csv'
 
