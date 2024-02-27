@@ -7,16 +7,50 @@ NUM_DAYS_IN_WEEK = 7
 
 
 def load_data(data_file: str):
+    """
+    Load a CSV data file from the 'data' directory.
+
+    Parameters:
+        data_file (str): The name of the CSV data file to load.
+
+    Returns:
+        pandas.DataFrame: The loaded data as a pandas DataFrame.
+
+    Raises:
+        FileNotFoundError: If the specified data file is not found.
+    """
     package_dir = os.path.dirname(os.path.dirname(__file__))
     data_dir = os.path.join(package_dir, 'data')
-    os.chdir(data_dir)
-    return pd.read_csv(data_file)
+    file_path = os.path.join(data_dir, data_file)
+    try:
+        return pd.read_csv(file_path)
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"Data file '{data_file}' not found in directory '{data_dir}'.") from e
 
 
-def map_into_numeric(data: pd.DataFrame, mappings: dict):
+def map_into_numeric(df: pd.DataFrame, mappings: dict):
+    """
+    Map categorical values in a DataFrame to numeric values based on provided mappings.
+
+    Parameters:
+        df (pd.DataFrame): The DataFrame containing categorical columns to be mapped.
+        mappings (dict): A dictionary where keys are column names and values are dictionaries
+                         mapping categorical values to numeric values for each column.
+
+    Returns:
+        pd.DataFrame: The DataFrame with categorical values mapped to numeric values.
+
+    Example:
+        If mappings = {'color': {'red': 1, 'blue': 2}} and 'color' is a column in the DataFrame,
+        the function will replace 'red' with 1 and 'blue' with 2 in the 'color' column.
+
+    Note:
+        This function does not modify the input DataFrame; it returns a new DataFrame with the mappings applied.
+
+    """
     for col_name in mappings:
-        data = data.replace({col_name: mappings[col_name]})
-    return data
+        df = df.replace({col_name: mappings[col_name]})
+    return df
 
 
 def is_data_full(data: pd.DataFrame):
