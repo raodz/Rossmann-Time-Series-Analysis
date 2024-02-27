@@ -1,4 +1,4 @@
-from src.data import *
+from src.data import load_data, map_into_numeric, is_data_full
 
 data_file = 'train.csv'
 
