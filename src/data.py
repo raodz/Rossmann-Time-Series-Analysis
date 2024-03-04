@@ -72,12 +72,12 @@ def map_into_numeric(df: pd.DataFrame, mappings: dict) -> pd.DataFrame:
 
 
 
-def is_data_full(data: pd.DataFrame) -> bool:
+def is_data_full(df: pd.DataFrame) -> bool:
     """
     Check if the given DataFrame spans consecutive days without any missing dates.
 
     Parameters:
-        data (pd.DataFrame): The DataFrame to be checked. It is assumed that the index of the DataFrame contains dates in the format '%Y-%m-%d'.
+        df (pd.DataFrame): The DataFrame to be checked. It is assumed that the index of the DataFrame contains dates in the format '%Y-%m-%d'.
 
     Returns:
         bool: True if the DataFrame spans consecutive days without any missing dates, False otherwise.
@@ -88,30 +88,30 @@ def is_data_full(data: pd.DataFrame) -> bool:
     Example:
         >>> import pandas as pd
         >>> from datetime import datetime
-        >>> data = pd.DataFrame({'values': [1, 2, 3]}, index=pd.date_range(start='2024-01-01', periods=3))
-        >>> is_data_full(data)
+        >>> df = pd.DataFrame({'values': [1, 2, 3]}, index=pd.date_range(start='2024-01-01', periods=3))
+        >>> is_data_full(df)
         True
     """
-    if not isinstance(data, pd.DataFrame):
-        raise TypeError("The input 'data' must be a pandas DataFrame.")
+    if not isinstance(df, pd.DataFrame):
+        raise TypeError("The input 'df' must be a pandas DataFrame.")
 
-    if data.empty:
+    if df.empty:
         raise ValueError("The input DataFrame is empty.")
 
     try:
-        first_day = dt.datetime.strptime(data.index[0], '%Y-%m-%d')
-        last_day = dt.datetime.strptime(data.index[-1], '%Y-%m-%d')
+        first_day = dt.datetime.strptime(df.index[0], '%Y-%m-%d')
+        last_day = dt.datetime.strptime(df.index[-1], '%Y-%m-%d')
     except ValueError:
         raise ValueError("The index of the DataFrame must contain dates in the format '%Y-%m-%d'.")
 
-    if first_day + dt.timedelta(len(data) - 1) == last_day:
+    if first_day + dt.timedelta(len(df) - 1) == last_day:
         return True
     else:
         return False
 
 
 
-def sliding_window(elements: pd.DataFrame, y_col: str, window_size: int) -> tuple:
+def sliding_window(df: pd.DataFrame, y_col: str, window_size: int) -> tuple:
     """
     Generate sliding windows of data for input features (X) and corresponding target values (y).
 
@@ -120,7 +120,7 @@ def sliding_window(elements: pd.DataFrame, y_col: str, window_size: int) -> tupl
     corresponding target values for each window.
 
     Parameters:
-        elements (pd.DataFrame): The DataFrame containing both input features and target values.
+        df (pd.DataFrame): The DataFrame containing both input features and target values.
         y_col (str): The column name representing the target values in the DataFrame.
         window_size (int): The size of the sliding window.
 
@@ -142,20 +142,20 @@ def sliding_window(elements: pd.DataFrame, y_col: str, window_size: int) -> tupl
         [14, 15]
 
     Note:
-        The function assumes that the input DataFrame `elements` contains consecutive indices.
+        The function assumes that the input DataFrame `df` contains consecutive indices.
         The function does not handle missing values or overlapping windows.
     """
-    if len(elements) <= window_size:
+    if len(df) <= window_size:
         raise ValueError("The length of the DataFrame must be greater than the window size.")
 
-    X = {col: [] for col in elements.columns}
+    X = {col: [] for col in df.columns}
     y = []
 
-    for i in range(len(elements) - window_size):
-        if elements[y_col][i + window_size] is not None:
+    for i in range(len(df) - window_size):
+        if df[y_col][i + window_size] is not None:
             for col in X:
-                X[col].append(pd.Series(elements[col][i:i + window_size]))
-            y.append(elements[y_col][i + window_size])
+                X[col].append(pd.Series(df[col][i:i + window_size]))
+            y.append(df[y_col][i + window_size])
     return X, y
 
 
