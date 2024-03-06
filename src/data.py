@@ -6,12 +6,12 @@ import numpy as np
 NUM_DAYS_IN_WEEK = 7
 
 
-def load_data(data_file: str) -> pd.DataFrame:
+def load_data(file_name: str) -> pd.DataFrame:
     """
     Load a CSV data file from the 'data' directory.
 
     Parameters:
-        data_file (str): The name of the CSV data file to load.
+        file_name (str): The name of the CSV data file to load.
 
     Returns:
         pandas.DataFrame: The loaded data as a pandas DataFrame.
@@ -24,17 +24,17 @@ def load_data(data_file: str) -> pd.DataFrame:
         >>> print(loaded_data.head())
 
     """
-    if not isinstance(data_file, str):
-        raise TypeError("The input 'data_file' must be a string.")
+    if not isinstance(file_name, str):
+        raise TypeError("The input 'file_name' must be a string.")
 
     package_dir = os.path.dirname(os.path.dirname(__file__))
     data_dir = os.path.join(package_dir, 'data')
-    file_path = os.path.join(data_dir, data_file)
+    file_path = os.path.join(data_dir, file_name)
 
     try:
         return pd.read_csv(file_path)
     except FileNotFoundError as e:
-        raise FileNotFoundError(f"Data file '{data_file}' not found in directory '{data_dir}'.") from e
+        raise FileNotFoundError(f"Data file '{file_name}' not found in directory '{data_dir}'.") from e
 
 
 
@@ -104,11 +104,7 @@ def is_data_full(df: pd.DataFrame) -> bool:
     except ValueError:
         raise ValueError("The index of the DataFrame must contain dates in the format '%Y-%m-%d'.")
 
-    if first_day + dt.timedelta(len(df) - 1) == last_day:
-        return True
-    else:
-        return False
-
+    return first_day + dt.timedelta(len(df) - 1) == last_day
 
 
 def sliding_window(df: pd.DataFrame, y_col: str, window_size: int) -> tuple:
