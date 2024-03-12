@@ -26,20 +26,16 @@ def preprocess_data(file_name: str, state_holiday_mapping: dict, prc_samples_for
         raise FileNotFoundError("File not found. Please provide a valid file name.")
 
     n_samples_test = int(prc_samples_for_test * len(df))
-    train_df = df[:-n_samples_test]
-    test_df = df[-n_samples_test:]
 
-    train_df = map_into_numeric(train_df, {'StateHoliday': state_holiday_mapping})
-    train_df = train_df.groupby('Date').mean()
-    train_df.drop(['Store'], axis=1, inplace=True)
-    assert is_data_full(train_df), "Training data is not full."
+    dfs = {train_df: df[:-n_samples_test], test_df: df[-n_samples_test:]}
 
-    test_df = map_into_numeric(test_df, {'StateHoliday': state_holiday_mapping})
-    test_df = test_df.groupby('Date').mean()
-    test_df.drop(['Store'], axis=1, inplace=True)
-    assert is_data_full(test_df), "Testing data is not full."
+    for chosen_df in dfs:
+        dfs[chosen_df] = map_into_numeric(dfs[chosen_df], {'StateHoliday': state_holiday_mapping})
+        dfs[chosen_df] = dfs[chosen_df].groupby('Date').mean()
+        dfs[chosen_df].drop(['Store'], axis=1, inplace=True)
+        assert is_data_full(dfs[chosen_df]), "Training data is not full."
 
-    X_train, y_train = get_X_y(train_df, input_size=1)
-    X_test, y_test = get_X_y(test_df, input_size=1)
+    X_train, y_train = get_X_y(dfs[train_df], input_size=1)
+    X_test, y_test = get_X_y(dfs[test_df], input_size=1)
 
     return X_train, y_train, X_test, y_test
