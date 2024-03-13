@@ -2,9 +2,9 @@ from src.preprocessing import preprocess_data
 import numpy as np
 from sklearn.ensemble import AdaBoostRegressor
 from sklearn.metrics import mean_squared_error
-from pmdarima import auto_arima
-import statsmodels as sm
-from src.plots import visualize_arima_results
+# from pmdarima import auto_arima
+# import statsmodels as sm
+# from src.plots import visualize_arima_results
 
 state_holiday_mapping = {'0': 0, 'a': 1, 'b': 1, 'c': 1}
 # All types of holidays are mapped into 1
