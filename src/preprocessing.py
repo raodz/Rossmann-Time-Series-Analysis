@@ -23,7 +23,7 @@ def preprocess_data(file_name: str, state_holiday_mapping: dict, prc_samples_for
     - AssertionError: If any of the dataframes are not full.
     """
     try:
-        df = pd.read_csv(file_name)  # Assumes CSV format, change if necessary
+        df = load_data(file_name)  # Assumes CSV format, change if necessary
     except FileNotFoundError:
         raise FileNotFoundError("File not found. Please provide a valid file name.")
 
