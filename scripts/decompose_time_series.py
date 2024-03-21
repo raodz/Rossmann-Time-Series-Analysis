@@ -1,18 +1,19 @@
-from preprocess_data import train_df
+from src.preprocessing import preprocess_data
+from train_models import state_holiday_mapping
 from statsmodels.tsa.seasonal import seasonal_decompose
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
 from sklearn.ensemble import IsolationForest
 
-sales = train_df['Sales']
+X_train, y_train, X_test, y_test = preprocess_data('train.csv', state_holiday_mapping)
 
-result = seasonal_decompose(sales, model='additive', period=30)
+result = seasonal_decompose(y_train, model='additive', period=30)
 
 # Wykresy składowych
 
 plt.figure(figsize=(12, 8))
 plt.subplot(4, 1, 1)
-plt.plot(train_df, label='Original')
+plt.plot(y_train, label='Original')
 plt.legend(loc='upper left')
 
 plt.subplot(4, 1, 2)
@@ -32,7 +33,7 @@ plt.show()
 
 # Usuwanie trendu w celu otrzymania szeregu stacjonarnego
 
-cycle, trend = sm.tsa.filters.hpfilter(sales, lamb=129600)
+cycle, trend = sm.tsa.filters.hpfilter(y_train, lamb=129600)
 
 stationary_catfish = cycle
 
@@ -54,7 +55,7 @@ anomalies = model.predict(stationary_catfish.to_numpy().reshape(-1, 1))
 anomalies_idx = [i for i, x in enumerate(anomalies) if x == -1]
 
 plt.figure(figsize=(12, 2))
-plt.plot(train_df, c ="b")
-plt.scatter(sales[anomalies_idx].index,sales[anomalies_idx], c="r")
+plt.plot(X_train, c ="b")
+plt.scatter(y_train[anomalies_idx].index, y_train[anomalies_idx], c="r")
 plt.legend(loc='upper left')
 plt.show()
