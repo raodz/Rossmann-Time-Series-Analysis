@@ -10,12 +10,27 @@ state_holiday_mapping = {'0': 0, 'a': 1, 'b': 1, 'c': 1}
 # All types of holidays are mapped into 1
 
 X_train, y_train, X_test, y_test = preprocess_data('train.csv', state_holiday_mapping)
+print(f'Mean sales value: {np.mean(y_test)}')
 
 adaboost = AdaBoostRegressor(n_estimators=100, random_state=0)
 adaboost.fit(X_train, y_train)
 y_pred_adaboost = adaboost.predict(X_test)
 adab_rmse = np.sqrt(mean_squared_error(y_test, y_pred_adaboost))
 print(f'AdaBoostRegressor RMSE: {adab_rmse}')
+
+from sklearn.linear_model import LinearRegression
+reg = LinearRegression()
+reg.fit(X_train,y_train)
+y_pred_reg = reg.predict(X_test)
+reg_rmse = np.sqrt(mean_squared_error(y_test, y_pred_reg))
+print(f'Linear Regression RMSE: {reg_rmse}')
+
+from sklearn.linear_model import Lasso
+lasso = Lasso(alpha=.1)
+lasso.fit(X_train, y_train)
+y_pred_lasso = lasso.predict(X_test)
+lasso_rmse = np.sqrt(mean_squared_error(y_test, y_pred_lasso))
+print(f'Lasso RMSE: {lasso_rmse}')
 
 # seasonality_period = 365
 
