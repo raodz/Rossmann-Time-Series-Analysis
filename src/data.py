@@ -2,6 +2,7 @@ import os
 import datetime as dt
 import pandas as pd
 import numpy as np
+from typing import Tuple
 
 NUM_DAYS_IN_WEEK = 7
 
@@ -212,11 +213,6 @@ def get_X_y(df: pd.DataFrame, input_size: int = 1) -> tuple:
     X.index = df.index[NUM_DAYS_IN_WEEK:]
     y = pd.Series(y, index=df.index[NUM_DAYS_IN_WEEK:])
     return X, y
-
-
-from typing import Tuple
-from src.data import load_data, map_into_numeric, is_data_full, get_X_y
-import pandas as pd
 
 
 def preprocess_data(file_name: str, state_holiday_mapping: dict, prc_samples_for_test: float = 0.05) -> Tuple[pd.DataFrame, pd.Series, pd.DataFrame, pd.Series]:
