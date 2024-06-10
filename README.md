@@ -65,4 +65,29 @@ Lasso Regression (Least Absolute Shrinkage and Selection Operator) can handle hi
 - **ARIMA**: Struggled with capturing the complexities of the sales data due to its single-seasonality focus.
 - **Lasso Regression**: Excelled by selecting the most relevant features and mitigating overfitting, thus delivering better predictions.
 
+## Folder Structure
+
+```bash
+Rossmann-Time-Series-Analysis/
+├── scripts/
+│   ├── main.py
+│   ├── train_models.py
+│   ├── decompose_time_series.py
+├── src/
+│   ├── data.py
+│   ├── plots.py
+├── tests/
+│   ├── test_get_X_y.py
+│   ├── test_is_data_full.py
+│   ├── test_map_into_numeric.py
+│   ├── test_preprocess_data.py
+│   ├── test_sliding_window.py
+├── results/
+│   ├── decomposition_plot.png
+│   ├── model_results.md
+│   ├── lasso_model.joblib
+│   ├── test_predictions.png
+│   ├── train_test_predictions.png
+```
+
 By following this structure and methodology, the project systematically identifies the best model for predicting Rossmann store sales and provides insights into the underlying data patterns, enhancing the accuracy and reliability of the forecasts.
