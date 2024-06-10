@@ -33,8 +33,7 @@ def load_data(file_name: str) -> pd.DataFrame:
     file_path = os.path.join(data_dir, file_name)
 
     try:
-        df = pd.read_csv(file_path)
-        return df
+        return pd.read_csv(file_path)
     except FileNotFoundError as e:
         raise FileNotFoundError(f"Data file '{file_name}' not found in directory '{data_dir}'.") from e
 
@@ -118,7 +117,6 @@ def sliding_window(df: pd.DataFrame, y_col: str = 'Sales') -> tuple:
     Parameters:
         df (pd.DataFrame): The DataFrame containing both input features and target values.
         y_col (str): The column name representing the target values in the DataFrame.
-        window_size (int): The size of the sliding window.
 
     Returns:
         tuple: A tuple containing two lists: X and y.
@@ -144,6 +142,7 @@ def sliding_window(df: pd.DataFrame, y_col: str = 'Sales') -> tuple:
     window_size = NUM_DAYS_IN_WEEK
 
     if len(df) <= window_size:
+        print(len(df))
         raise ValueError("The length of the DataFrame must be greater than the window size.")
 
     X = {col: [] for col in df.columns}
@@ -162,11 +161,11 @@ def get_X_y(df: pd.DataFrame, y_col: str = 'Sales') -> tuple:
     Generate input features (X) and corresponding target values (y) from the given DataFrame.
 
     This function prepares the input features and target values for training a predictive model.
-    It creates sliding windows of data using the 'Sales' column of the DataFrame and organizes them into X and y.
+    It creates sliding windows of data using the y_col column of the DataFrame and organizes them into X and y.
 
     Parameters:
+        df (pd.DataFrame): The DataFrame containing the data, including the y_col column.
         y_col (str): The column name representing the target values in the DataFrame.
-        df (pd.DataFrame): The DataFrame containing the data, including the 'Sales' column.
 
     Returns:
         tuple: A tuple containing X and y.
