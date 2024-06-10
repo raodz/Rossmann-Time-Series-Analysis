@@ -33,7 +33,8 @@ def load_data(file_name: str) -> pd.DataFrame:
     file_path = os.path.join(data_dir, file_name)
 
     try:
-        return pd.read_csv(file_path)
+        df = pd.read_csv(file_path)
+        return df
     except FileNotFoundError as e:
         raise FileNotFoundError(f"Data file '{file_name}' not found in directory '{data_dir}'.") from e
 
@@ -87,7 +88,7 @@ def is_data_full(df: pd.DataFrame) -> bool:
     Example:
         >>> import pandas as pd
         >>> from datetime import datetime
-        >>> df = pd.DataFrame({'values': [1, 2, 3]}, index=pd.date_range(start='2024-01-01', periods=3))
+        >>> df = pd.DataFrame({'values': [1, 2, 3]}, index=('2024-01-01', '2024-01-02', '2024-01-03'))
         >>> is_data_full(df)
         True
     """
@@ -106,7 +107,7 @@ def is_data_full(df: pd.DataFrame) -> bool:
     return first_day + dt.timedelta(len(df) - 1) == last_day
 
 
-def sliding_window(df: pd.DataFrame, y_col: str, window_size: int) -> tuple:
+def sliding_window(df: pd.DataFrame, y_col: str = 'Sales') -> tuple:
     """
     Generate sliding windows of data for input features (X) and corresponding target values (y).
 
@@ -140,6 +141,8 @@ def sliding_window(df: pd.DataFrame, y_col: str, window_size: int) -> tuple:
         The function assumes that the input DataFrame `df` contains consecutive indices.
         The function does not handle missing values or overlapping windows.
     """
+    window_size = NUM_DAYS_IN_WEEK
+
     if len(df) <= window_size:
         raise ValueError("The length of the DataFrame must be greater than the window size.")
 
@@ -154,7 +157,7 @@ def sliding_window(df: pd.DataFrame, y_col: str, window_size: int) -> tuple:
     return X, y
 
 
-def get_X_y(df: pd.DataFrame, input_size: int = 1) -> tuple:
+def get_X_y(df: pd.DataFrame, y_col: str = 'Sales') -> tuple:
     """
     Generate input features (X) and corresponding target values (y) from the given DataFrame.
 
@@ -162,21 +165,18 @@ def get_X_y(df: pd.DataFrame, input_size: int = 1) -> tuple:
     It creates sliding windows of data using the 'Sales' column of the DataFrame and organizes them into X and y.
 
     Parameters:
+        y_col (str): The column name representing the target values in the DataFrame.
         df (pd.DataFrame): The DataFrame containing the data, including the 'Sales' column.
-        input_size (int, optional): The size of the input window. Defaults to 1.
 
     Returns:
         tuple: A tuple containing X and y.
             X (pd.DataFrame or dict): The input features for the model.
             y (pd.Series): The corresponding target values.
 
-    Raises:
-        ValueError: If 'input_size' is not a positive integer.
-
     Example:
         >>> import pandas as pd
         >>> data = pd.DataFrame({'Sales': [100, 120, 130, 110, 105]})
-        >>> X, y = get_X_y(data, input_size=2)
+        >>> X, y = get_X_y(data)
         >>> print(X)
            Sales0  Sales1
         2     100     120
@@ -185,29 +185,14 @@ def get_X_y(df: pd.DataFrame, input_size: int = 1) -> tuple:
         2    110
         3    105
 
-    Note:
-        This function internally uses the sliding_window function.
-        It prepares input features with a sliding window approach, where each row contains the previous 'input_size' values.
     """
-    X, y = sliding_window(df, 'Sales', window_size=NUM_DAYS_IN_WEEK)
-
-    if not isinstance(input_size, int) or input_size <= 0:
-        raise ValueError("'input_size' must be a positive integer.")
-
-    if input_size > 1:
-        longer_inputs = {}
-        for company in X:
-            longer_inputs[company] = []
-            for i in range(len(X[company]) - input_size):
-                longer_inputs[company].append(np.array(X[company][i:i + input_size]).flatten())
-        X = longer_inputs
-        y = y[:len(y) - input_size]
+    X, y = sliding_window(df, y_col)
 
     features = []
 
     for feature in X:
         features.append(
-            pd.DataFrame(np.array(X[feature]), columns=[f'{feature}{i}' for i in range(NUM_DAYS_IN_WEEK * input_size)]))
+            pd.DataFrame(np.array(X[feature]), columns=[f'{feature}{i}' for i in range(NUM_DAYS_IN_WEEK)]))
 
     X = pd.concat(features, axis=1)
     X.index = df.index[NUM_DAYS_IN_WEEK:]
@@ -215,11 +200,12 @@ def get_X_y(df: pd.DataFrame, input_size: int = 1) -> tuple:
     return X, y
 
 
-def preprocess_data(file_name: str, state_holiday_mapping: dict, prc_samples_for_test: float = 0.05) -> Tuple[pd.DataFrame, pd.Series, pd.DataFrame, pd.Series]:
+def preprocess_data(file_name: str, y_col: str = 'Sales', prc_samples_for_test: float = 0.05) -> Tuple[
+    pd.DataFrame, pd.Series, pd.DataFrame, pd.Series]:
     """
     Preprocesses the data by loading, splitting, mapping into numeric values, and preparing for training and testing.
 
-    Args:
+    Parameters:
     - file_name (str): The path to the data file.
     - state_holiday_mapping (dict): A dictionary mapping state holidays to numeric values.
     - prc_samples_for_test (float, optional): The percentage of samples to be used for testing. Default is 0.05.
@@ -239,6 +225,8 @@ def preprocess_data(file_name: str, state_holiday_mapping: dict, prc_samples_for
     except FileNotFoundError:
         raise FileNotFoundError("File not found. Please provide a valid file name.")
 
+    state_holiday_mapping = {'0': 0, 'a': 1, 'b': 1, 'c': 1}  # All types of holidays are mapped into 1
+
     n_samples_test = int(prc_samples_for_test * len(df))
 
     dfs = {'train_df': df[:-n_samples_test], 'test_df': df[-n_samples_test:]}
@@ -249,7 +237,7 @@ def preprocess_data(file_name: str, state_holiday_mapping: dict, prc_samples_for
         dfs[chosen_df].drop(['Store'], axis=1, inplace=True)
         assert is_data_full(dfs[chosen_df]), "Training data is not full."
 
-    X_train, y_train = get_X_y(dfs['train_df'], input_size=1)
-    X_test, y_test = get_X_y(dfs['test_df'], input_size=1)
+    X_train, y_train = get_X_y(dfs['train_df'], y_col=y_col)
+    X_test, y_test = get_X_y(dfs['test_df'], y_col=y_col)
 
     return X_train, y_train, X_test, y_test
