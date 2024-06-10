@@ -2,7 +2,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-def plot_train_test_predictions(X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Series, y_test: pd.Series, y_pred: pd.Series) -> None:
+def plot_train_test_predictions(X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Series,
+                                y_test: pd.Series, y_pred: pd.Series, save_path: str = None) -> None:
     """
     Plot actual and predicted values for training and testing data.
 
@@ -12,6 +13,7 @@ def plot_train_test_predictions(X_train: pd.DataFrame, X_test: pd.DataFrame, y_t
         y_train (pd.Series): Series containing actual training values.
         y_test (pd.Series): Series containing actual testing values.
         y_pred (pd.Series): Series containing predicted values.
+        save_path (str): Path to directory where plot is saved.
 
     Returns:
         None
@@ -32,13 +34,15 @@ def plot_train_test_predictions(X_train: pd.DataFrame, X_test: pd.DataFrame, y_t
     plt.ylabel('Value')
 
     x_ticks = all_dates[::50]
-    plt.xticks(x_ticks, rotation=90)
+    plt.xticks(x_ticks, rotation=45)
     plt.legend()
 
+    if save_path:
+        plt.savefig(save_path)
     plt.show()
 
 
-def plot_test_predictions(X_test: pd.DataFrame, y_test: pd.Series, y_pred: pd.Series) -> None:
+def plot_test_predictions(X_test: pd.DataFrame, y_test: pd.Series, y_pred: pd.Series, save_path: str = None) -> None:
     """
     Plot actual and predicted values for testing data.
 
@@ -46,6 +50,7 @@ def plot_test_predictions(X_test: pd.DataFrame, y_test: pd.Series, y_pred: pd.Se
         X_test (pd.DataFrame): DataFrame containing testing dates.
         y_test (pd.Series): Series containing actual testing values.
         y_pred (pd.Series): Series containing predicted values.
+        save_path (str): Path to directory where plot is saved.
 
     Returns:
         None
@@ -61,6 +66,8 @@ def plot_test_predictions(X_test: pd.DataFrame, y_test: pd.Series, y_pred: pd.Se
     plt.xlabel('Date')
     plt.ylabel('Value')
     plt.legend()
-    plt.xticks(rotation=90)
+    plt.xticks(rotation=45)
 
+    if save_path:
+        plt.savefig(save_path)
     plt.show()
