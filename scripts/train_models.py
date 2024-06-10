@@ -1,5 +1,4 @@
 import os
-import pandas as pd
 from src.data import preprocess_data
 import numpy as np
 from sklearn.ensemble import AdaBoostRegressor
