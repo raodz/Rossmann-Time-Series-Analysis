@@ -228,7 +228,7 @@ def preprocess_data(file_name: str, y_col: str = 'Sales', prc_samples_for_test: 
 
     n_samples_test = int(prc_samples_for_test * len(df))
 
-    dfs = {'train_df': df[:-n_samples_test], 'test_df': df[-n_samples_test:]}
+    dfs = {'train_df': df[n_samples_test:], 'test_df': df[:n_samples_test]}
 
     for chosen_df in dfs:
         dfs[chosen_df] = map_into_numeric(dfs[chosen_df], {'StateHoliday': state_holiday_mapping})
