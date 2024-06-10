@@ -29,7 +29,7 @@ The goal of this project was to develop and train a model that predicts the aver
    pip install -r requirements.txt
    ```
 
-3. **Add Data**: Create a folder named `data` in the project directory and add the `train.csv` file. You can download the dataset from [Kaggle](https://www.kaggle.com/competitions/rossmann-store-sales).
+3. **Add Data**: Create a folder named `data` in the project directory and add the `train.csv` file. You can download the dataset from [Kaggle](https://www.kaggle.com/competitions/rossmann-store-sales). Due to the temporal nature of the data, it is required that there are no missing values.
 
 4. **Train Models**: Run `train_models.py` to train and evaluate different models. This script will save the results in `model_results.md`.
    ```bash
