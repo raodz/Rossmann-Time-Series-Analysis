@@ -1,16 +1,16 @@
 # Model Results
 
-**Mean of y_test:** 5434.7874
+**Mean of y_test:** 6161.2154
 
-**Standard Deviation of y_test:** 2311.1704
+**Standard Deviation of y_test:** 2699.7970
 
 | Model             | RMSE      |
 |-------------------|-----------|
-| ARIMA             | 5081.2776 |
-| AdaBoostRegressor | 1183.8276 |
-| Linear Regression | 1114.9960 |
-| Lasso             | 636.7230  |
-| Ridge             | 636.9150  |
-| Sequential Model  | 3199.7759 |
+| ARIMA             | 5081.7226 |
+| AdaBoostRegressor | 1498.5503 |
+| Linear Regression | 648.9855  |
+| Lasso             | 646.6062  |
+| Ridge             | 647.8065  |
+| Sequential Model  | 3516.2668 |
 
-**Model with lowest RMSE:** Lasso (636.7230)
+**Model with lowest RMSE:** Lasso (646.6062)
