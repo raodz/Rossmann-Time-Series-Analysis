@@ -1,60 +1,66 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-import numpy as np
-from sklearn.metrics import mean_squared_error
 
 
-def visualize_arima_results(test_df, predictions, y_lim):
+def plot_train_test_predictions(X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Series, y_test: pd.Series, y_pred: pd.Series) -> None:
     """
-    Visualize ARIMA model results and evaluate its performance.
+    Plot actual and predicted values for training and testing data.
 
     Parameters:
-    -----------
-    test_df : pandas.DataFrame or pandas.Series
-        The actual time series data used for testing the ARIMA model.
-
-    predictions : statsmodels.tsa.statespace.sarimax.SARIMAXResultsWrapper
-        The fitted ARIMA model results.
-
-    y_lim: int
-        The upper value of the y-axis range in the plot.
+        X_train (pd.DataFrame): DataFrame containing training dates.
+        X_test (pd.DataFrame): DataFrame containing testing dates.
+        y_train (pd.Series): Series containing actual training values.
+        y_test (pd.Series): Series containing actual testing values.
+        y_pred (pd.Series): Series containing predicted values.
 
     Returns:
-    --------
-    None
-
-    Notes:
-    ------
-    This function visualizes the actual time series data alongside the ARIMA model predictions
-    with a shaded confidence interval. It also computes and prints the Root Mean Squared Error (RMSE)
-    as a measure of the model's accuracy.
-
-    Parameters:
-    -----------
-    test_df : pandas.DataFrame or pandas.Series
-        The actual time series data used for testing the ARIMA model.
-
-    predictions : statsmodels.tsa.statespace.sarimax.SARIMAXResultsWrapper
-        The fitted ARIMA model results.
-
-    Examples:
-    ---------
-    >>> visualize_arima_results(your_test_data, arima_predictions)
+        None
     """
+    # Obsługa wyjątku, gdy X_train lub X_test jest pustą ramką danych
+    if X_train.empty or X_test.empty:
+        raise ValueError("X_train or X_test DataFrame is empty")
 
-    # przedział ufności dla predykcji
-    yhat_conf_int = predictions.conf_int(alpha=0.05)
+    all_dates = pd.concat([pd.Series(X_train.index), pd.Series(X_test.index)])
 
-    # Wyświetl wyniki
-    # Zwróć uwagę na użycie funkcji fill_between
-    plt.plot(test_df, label='Actual')
-    plt.plot(pd.Series(predictions.predicted_mean, index=test_df.index), label='ARIMA Predictions')
-    plt.ylim(0, y_lim)
-    plt.fill_between(test_df.index, yhat_conf_int[:,0], yhat_conf_int[:,1], color="lightgray")
-    plt.xticks(rotation=45, ha="right")
+    plt.figure(figsize=(10, 6))
+    plt.plot(X_train.index, y_train, label='Actual (Train)', color='blue')
+    plt.plot(X_test.index, y_test, label='Actual (Test)', color='green')
+    plt.plot(X_test.index, y_pred, label='Predicted', color='red')
+
+    plt.title('Actual vs Predicted Values')
+    plt.xlabel('Date')
+    plt.ylabel('Value')
+
+    x_ticks = all_dates[::50]
+    plt.xticks(x_ticks, rotation=90)
     plt.legend()
+
     plt.show()
 
-    # Ocena modelu za pomocą błędu RMSE
-    rmse = np.sqrt(mean_squared_error(test_df.values.reshape(-1), predictions.predicted_mean))
-    print(f'Root Mean Squared Error (RMSE): {rmse:.4f}')
+
+def plot_test_predictions(X_test: pd.DataFrame, y_test: pd.Series, y_pred: pd.Series) -> None:
+    """
+    Plot actual and predicted values for testing data.
+
+    Parameters:
+        X_test (pd.DataFrame): DataFrame containing testing dates.
+        y_test (pd.Series): Series containing actual testing values.
+        y_pred (pd.Series): Series containing predicted values.
+
+    Returns:
+        None
+    """
+    if X_test.empty:
+        raise ValueError("X_test DataFrame is empty")
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(X_test.index, y_test, label='Actual', color='green')
+    plt.plot(X_test.index, y_pred, label='Predicted', color='red')
+
+    plt.title('Actual vs Predicted Values')
+    plt.xlabel('Date')
+    plt.ylabel('Value')
+    plt.legend()
+    plt.xticks(rotation=90)
+
+    plt.show()
