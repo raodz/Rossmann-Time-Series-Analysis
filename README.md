@@ -1,35 +1,68 @@
-# Exploratory Data Analysis and Time Series Modeling for Rossmann Store Sales
+# Rossmann Time Series Analysis
 
-## Project Description
-This project focuses on exploratory data analysis and time series modeling of sales data from 1,115 Rossmann stores. The data used in the project is sourced from Kaggle. The goal of the project is to understand sales dynamics, detect trends and seasonality, and build effective models for predicting sales in individual stores.
+## Project Overview
 
-## Data
-The data used in the project was provided by Kaggle as part of the "Rossmann Store Sales" competition. The dataset contains information about sales in 1,115 Rossmann stores, along with data regarding promotions, competition, and store information.
+The goal of this project was to develop and train a model that predicts the average daily sales values for Rossmann stores based on data from the week preceding the forecast date. The project is organized into several folders:
 
-## Required Libraries
-The project utilizes several popular Python libraries, including:
-- pandas
-- numpy
-- matplotlib
-- seaborn
-- scikit-learn
-- statsmodels
+- **scripts**: This folder contains the main scripts for training and prediction.
+  - `main.py`: Trains the best model identified during experimentation, generates predictions and creates plots.
+  - `train_models.py`: Trains various models, from which the best-performing one was selected for `main.py`. The performance of all models is documented in the `model_results.md` file.
+  - `decompose_time_series.py`: Decomposes the time series data, revealing weekly seasonality. This information was used in the ARIMA model, one of the models evaluated in `train_models.py`.
 
-## Project Structure
-- `data/`: Directory containing input data.
-- `notebooks/`: Directory containing Jupyter notebooks with exploratory analysis and time series modeling.
-- `scripts/`: Directory containing helper Python scripts.
-- `src/`: Directory containing source code for data processing and modelling.
-- `requirements.txt`: File with all project requirements.
-- `README.md`: File containing project description.
+- **src**: This folder includes utility functions.
+  - `data.py`: Contains functions for preparing the data for analysis.
+  - `plots.py`: Contains functions for generating plots.
 
-## Instructions
-1. Download the data from [Kaggle](https://www.kaggle.com/competitions/rossmann-store-sales/overview) and place it in the `data/` directory.
-2. Run the Jupyter notebooks from the `notebooks/` directory to explore the data and perform time series modeling.
-3. Customize the models according to your needs using the scripts from the `scripts/` directory.
+- **tests**: This folder includes tests for the functions in `data.py`.
 
-## Authors
-This project was created by [Rafał Odziemski]([link to GitHub or other platform profile](https://github.com/raodz)).
+- **results**: This folder includes saved plots, a markdown file comparing model performances, and the saved best-trained model.
 
-## License
-This project is licensed under the MIT License.
+## How to Run the Project
+
+1. **Clone the Project**: Clone the repository to your local machine.
+   ```bash
+   git clone https://github.com/raodz/Rossmann-Time-Series-Analysis.git
+   ```
+
+2. **Install Dependencies**: Ensure you have all necessary packages installed. You can use `requirements.txt` if provided or install packages manually:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Add Data**: Create a folder named `data` in the project directory and add the `train.csv` file. You can download the dataset from [Kaggle](https://www.kaggle.com/competitions/rossmann-store-sales).
+
+4. **Train Models**: Run `train_models.py` to train and evaluate different models. This script will save the results in `model_results.md`.
+   ```bash
+   python scripts/train_models.py
+   ```
+
+5. **Decompose Time Series**: Run `decompose_time_series.py` to perform and visualize time series decomposition.
+   ```bash
+   python scripts/decompose_time_series.py
+   ```
+
+6. **Generate Final Predictions**: Run `main.py` to train the selected best model, generate predictions, and create plots.
+   ```bash
+   python scripts/main.py
+   ```
+
+## Results and Conclusions
+
+### Model Performance
+
+Despite considering seasonality, the ARIMA model did not yield the expected results. The Lasso model outperformed ARIMA significantly and was therefore used in `main.py` for final predictions.
+
+### Potential Issues with ARIMA
+
+The ARIMA model might have underperformed because it considered only one type of seasonality (weekly), while the data exhibited both weekly and yearly seasonality. This dual-seasonality is evident in the trend plots saved in `decomposition_plot.png` in the `results` folder.
+
+### Why Lasso Performed Well
+
+Lasso Regression (Least Absolute Shrinkage and Selection Operator) can handle high-dimensional data effectively and perform feature selection by driving some coefficients to zero. This ability to eliminate irrelevant features likely helped in reducing overfitting and improving the model's predictive performance, making it a better choice for this time series prediction task.
+
+### Summary of Key Findings
+
+- **ARIMA**: Struggled with capturing the complexities of the sales data due to its single-seasonality focus.
+- **Lasso Regression**: Excelled by selecting the most relevant features and mitigating overfitting, thus delivering better predictions.
+
+By following this structure and methodology, the project systematically identifies the best model for predicting Rossmann store sales and provides insights into the underlying data patterns, enhancing the accuracy and reliability of the forecasts.
