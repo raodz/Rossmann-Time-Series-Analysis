@@ -73,6 +73,9 @@ To run this project, ensure you have Python 3.7 or higher installed. Follow thes
 
 2. **Create a virtual environment** (recommended):
 
+3. **Add Data**: Create a folder named `data` in the project directory and add the `train.csv` file. You can download the dataset from [Kaggle](https://www.kaggle.com/competitions/rossmann-store-sales). Due to the temporal nature of the data, it is required that there are no missing values.
+
+
    ```bash
    python -m venv venv
    ```
