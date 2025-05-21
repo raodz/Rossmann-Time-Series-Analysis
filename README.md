@@ -51,21 +51,21 @@ We evaluated three different modeling approaches:
 
 This project relies on several Python packages for data processing, modeling, and visualization:
 
-- **pandas**: Used for data manipulation and analysis, providing the DataFrame structure that serves as the foundation for our data processing pipeline.
+- `pandas`: Used for data manipulation and analysis, providing the DataFrame structure that serves as the foundation for our data processing pipeline.
 
-- **numpy**: Provides support for large, multi-dimensional arrays and matrices, along with mathematical functions to operate on these structures.
+- `numpy`: Provides support for large, multi-dimensional arrays and matrices, along with mathematical functions to operate on these structures.
 
-- **pmdarima**: Implements auto_arima, which automatically finds the optimal ARIMA parameters (p,d,q) for a given time series, simplifying the model selection process.
+- `pmdarima`: Implements auto_arima, which automatically finds the optimal ARIMA parameters (p,d,q) for a given time series, simplifying the model selection process.
 
-- **statsmodels**: Provides the core implementation of ARIMA models used for forecasting after parameter selection.
+- `statsmodels`: Provides the core implementation of ARIMA models used for forecasting after parameter selection.
 
-- **scikit-learn**: Supplies the implementations of Linear Regression and DummyRegressor, along with metrics for model evaluation.
+- `scikit-learn`: Supplies the implementations of Linear Regression and DummyRegressor, along with metrics for model evaluation.
 
-- **matplotlib**: Powers all visualizations, including time series plots and performance comparisons.
+- `matplotlib`: Powers all visualizations, including time series plots and performance comparisons.
 
-- **logging**: Provides a flexible logging framework to track experiment progress and capture results.
+- `logging`: Provides a flexible logging framework to track experiment progress and capture results.
 
-- **PyYAML**: Used for loading configuration parameters from YAML files, allowing for easy experiment setup modification.
+- `PyYAML`: Used for loading configuration parameters from YAML files, allowing for easy experiment setup modification.
 
 The project follows a modular architecture with separate components for data processing, model training, experiment execution, visualization, and reporting, all organized into a clean, maintainable codebase.
 
@@ -80,7 +80,7 @@ We use **Root Mean Square Error (RMSE)** to evaluate model performance. RMSE mea
 In the baseline experiment, we used all available features including obvious indicators such as 'Customers' and 'Open' status. While this approach wouldn't be suitable for practical forecasting (since we wouldn't know future customer counts), it provides a useful reference point for evaluating model capabilities.
 
 #### Results Analysis
-The ARIMA model significantly outperformed both Linear Regression and the Dummy model in the baseline condition, achieving an RMSE of 303.15 compared to 471.72 for Linear Regression and 2741.95 for the Dummy model. 
+The ARIMA model significantly outperformed both Linear Regression and the Dummy model in the baseline condition, achieving an RMSE of **303.15** compared to **471.72** for Linear Regression and **2741.95** for the Dummy model. 
 
 This strong performance by ARIMA demonstrates its ability to effectively incorporate both feature information and temporal patterns in the sales data. The substantial gap between ARIMA and Linear Regression (55.60% improvement) suggests that the time-series component of the data contains valuable information that linear methods cannot capture.
 
@@ -96,7 +96,7 @@ The extremely poor performance of the Dummy model (RMSE = 2741.95) highlights th
 In this experiment, we excluded obvious indicators ('Customers' and 'Open') to create a more realistic forecasting scenario that relies only on features that would be available in advance for future predictions.
 
 #### Results Analysis
-When relying solely on actionable predictors, model performance decreased substantially. The ARIMA model's RMSE increased to 598.18, while Linear Regression increased to 687.49.
+When relying solely on actionable predictors, model performance decreased substantially. The ARIMA model's RMSE increased to **598.18**, while Linear Regression increased to **687.49**.
 
 This performance change demonstrates the challenge of real-world sales forecasting where future customer numbers are unknown. Without these obvious correlates, models must find more subtle patterns in the remaining features to make predictions.
 
@@ -111,7 +111,7 @@ Interestingly, ARIMA still maintained a performance advantage over Linear Regres
 This experiment excluded Sundays from the analysis to investigate the impact of weekly patterns and closed days on model performance.
 
 #### Results Analysis
-Excluding Sundays dramatically improved the performance of all models, with ARIMA achieving its best overall RMSE of 245.97, representing a 19% improvement over the baseline. Linear Regression improved to an RMSE of 495.58, while even the Dummy model showed substantial gains (RMSE = 1485.10 compared to 2741.95 in the baseline).
+Excluding Sundays dramatically improved the performance of all models, with ARIMA achieving its best overall RMSE of **245.97**, representing a 19% improvement over the baseline. Linear Regression improved to an RMSE of **495.58**, while even the Dummy model showed substantial gains (RMSE = **1485.10** compared to 2741.95 in the baseline).
 
 These remarkable improvements reveal the disruptive effect that Sundays have on prediction accuracy. Several factors likely contribute to this effect:
 
@@ -134,7 +134,7 @@ The substantial improvement in the Dummy model further confirms that much of the
 This experiment combined both previous modifications: excluding obvious features and removing Sundays from analysis, creating the most realistic forecasting scenario.
 
 #### Results Analysis
-This was the only experimental condition where Linear Regression (RMSE = 694.13) outperformed ARIMA (RMSE = 799.56), with a 13.19% advantage for Linear Regression. This surprising result reveals important insights about both models' strengths and limitations.
+This was the only experimental condition where Linear Regression (RMSE = **694.13**) outperformed ARIMA (RMSE = **799.56**), with a 13.19% advantage for Linear Regression. This surprising result reveals important insights about both models' strengths and limitations.
 
 Several factors likely contribute to this reversal:
 
