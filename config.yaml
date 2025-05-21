@@ -13,7 +13,6 @@ arima_params:
 
 linear_regression_params:
   fit_intercept: true
-  normalize: false
 
 dummy_model_params:
   strategy: 'mean'  # Options: 'mean', 'median', 'constant'
@@ -22,9 +21,10 @@ dummy_model_params:
 data_params:
   y_col: 'Sales'
   prc_samples_for_test: 0.05
-  numeric_mappings: {'StateHoliday': state_holiday_mapping})
+  numeric_mappings:
+    StateHoliday: state_holiday_mapping
 
 plot_params:
   plot_file_name: 'arima_test_predictions.png'
   title: 'Predictions vs Actual'
-  figsize: (12, 6)
+  figsize: [12, 6]
