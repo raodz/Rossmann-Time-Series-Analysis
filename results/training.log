@@ -1,0 +1,228 @@
+2025-05-21 00:52:17,409 - root - INFO - Logging initialized. Logs will be saved to results\training.log
+2025-05-21 00:52:17,409 - root - INFO - Program execution started
+2025-05-21 00:52:17,412 - root - INFO - Running experiments
+2025-05-21 00:52:17,412 - root - INFO - === Starting experiment: baseline ===
+2025-05-21 00:52:17,412 - root - INFO - Preparing data
+2025-05-21 00:52:18,007 - root - INFO - Data preparation completed
+2025-05-21 00:52:18,007 - root - INFO - Features used in the model: ['Customers', 'Open', 'Promo', 'SchoolHoliday', 'DayIsMonday', 'DayIsTuesday', 'DayIsWednesday', 'DayIsThursday', 'DayIsFriday', 'DayIsSaturday', 'DayIsSunday']
+2025-05-21 00:52:18,008 - root - INFO - Training ARIMA model
+2025-05-21 00:53:47,884 - root - INFO - ARIMA model trained
+2025-05-21 00:53:47,893 - root - INFO - RMSE for ARIMA model: 303.1549908827959
+2025-05-21 00:53:47,893 - root - INFO - Training Linear Regression model
+2025-05-21 00:53:47,894 - root - INFO - Linear Regression model trained
+2025-05-21 00:53:47,895 - root - INFO - RMSE for Linear Regression model: 471.71991726079983
+2025-05-21 00:53:47,895 - root - INFO - Training Dummy Model model
+2025-05-21 00:53:47,896 - root - INFO - Dummy Model model trained
+2025-05-21 00:53:47,896 - root - INFO - RMSE for Dummy Model model: 2741.9519537766323
+2025-05-21 00:53:47,896 - root - INFO - Results for experiment: baseline
+2025-05-21 00:53:47,896 - root - INFO - ARIMA: RMSE = 303.1549908827959
+2025-05-21 00:53:47,896 - root - INFO - Linear Regression: RMSE = 471.71991726079983
+2025-05-21 00:53:47,896 - root - INFO - Dummy Model: RMSE = 2741.9519537766323
+2025-05-21 00:53:48,380 - root - INFO - Plot for ARIMA model (baseline) saved at results\arima_baseline.png
+2025-05-21 00:53:48,836 - root - INFO - Plot for Linear Regression model (baseline) saved at results\linear_regression_baseline.png
+2025-05-21 00:53:49,274 - root - INFO - Plot for Dummy Model model (baseline) saved at results\dummy_model_baseline.png
+2025-05-21 00:53:49,274 - root - INFO - === Experiment completed: baseline ===
+2025-05-21 00:53:49,278 - root - INFO - === Starting experiment: no_obvious_features ===
+2025-05-21 00:53:49,278 - root - INFO - Features to exclude: ['Customers', 'Open']
+2025-05-21 00:53:49,278 - root - INFO - Preparing data
+2025-05-21 00:53:49,886 - root - INFO - Data preparation completed
+2025-05-21 00:53:49,886 - root - INFO - Features used in the model: ['Promo', 'SchoolHoliday', 'DayIsMonday', 'DayIsTuesday', 'DayIsWednesday', 'DayIsThursday', 'DayIsFriday', 'DayIsSaturday', 'DayIsSunday']
+2025-05-21 00:53:49,886 - root - INFO - Training ARIMA model
+2025-05-21 00:54:14,238 - root - INFO - ARIMA model trained
+2025-05-21 00:54:14,245 - root - INFO - RMSE for ARIMA model: 598.1832675921157
+2025-05-21 00:54:14,245 - root - INFO - Training Linear Regression model
+2025-05-21 00:54:14,246 - root - INFO - Linear Regression model trained
+2025-05-21 00:54:14,248 - root - INFO - RMSE for Linear Regression model: 687.489934353169
+2025-05-21 00:54:14,249 - root - INFO - Training Dummy Model model
+2025-05-21 00:54:14,249 - root - INFO - Dummy Model model trained
+2025-05-21 00:54:14,249 - root - INFO - RMSE for Dummy Model model: 2741.9519537766323
+2025-05-21 00:54:14,249 - root - INFO - Results for experiment: no_obvious_features
+2025-05-21 00:54:14,249 - root - INFO - ARIMA: RMSE = 598.1832675921157
+2025-05-21 00:54:14,249 - root - INFO - Linear Regression: RMSE = 687.489934353169
+2025-05-21 00:54:14,249 - root - INFO - Dummy Model: RMSE = 2741.9519537766323
+2025-05-21 00:54:14,698 - root - INFO - Plot for ARIMA model (no_obvious_features) saved at results\arima_no_obvious_features.png
+2025-05-21 00:54:15,149 - root - INFO - Plot for Linear Regression model (no_obvious_features) saved at results\linear_regression_no_obvious_features.png
+2025-05-21 00:54:15,587 - root - INFO - Plot for Dummy Model model (no_obvious_features) saved at results\dummy_model_no_obvious_features.png
+2025-05-21 00:54:15,587 - root - INFO - === Experiment completed: no_obvious_features ===
+2025-05-21 00:54:15,590 - root - INFO - === Starting experiment: no_sundays ===
+2025-05-21 00:54:15,590 - root - INFO - Excluding Sundays from analysis
+2025-05-21 00:54:15,590 - root - INFO - Preparing data
+2025-05-21 00:54:16,207 - root - INFO - Data preparation completed
+2025-05-21 00:54:16,207 - root - INFO - Features used in the model: ['Customers', 'Open', 'Promo', 'SchoolHoliday', 'DayIsMonday', 'DayIsTuesday', 'DayIsWednesday', 'DayIsThursday', 'DayIsFriday', 'DayIsSaturday']
+2025-05-21 00:54:16,207 - root - INFO - Training ARIMA model
+2025-05-21 00:55:02,281 - root - INFO - ARIMA model trained
+2025-05-21 00:55:02,287 - root - INFO - RMSE for ARIMA model: 245.9722084736948
+2025-05-21 00:55:02,287 - root - INFO - Training Linear Regression model
+2025-05-21 00:55:02,288 - root - INFO - Linear Regression model trained
+2025-05-21 00:55:02,290 - root - INFO - RMSE for Linear Regression model: 495.5810564216659
+2025-05-21 00:55:02,290 - root - INFO - Training Dummy Model model
+2025-05-21 00:55:02,290 - root - INFO - Dummy Model model trained
+2025-05-21 00:55:02,290 - root - INFO - RMSE for Dummy Model model: 1485.101306377646
+2025-05-21 00:55:02,290 - root - INFO - Results for experiment: no_sundays
+2025-05-21 00:55:02,290 - root - INFO - ARIMA: RMSE = 245.9722084736948
+2025-05-21 00:55:02,290 - root - INFO - Linear Regression: RMSE = 495.5810564216659
+2025-05-21 00:55:02,291 - root - INFO - Dummy Model: RMSE = 1485.101306377646
+2025-05-21 00:55:02,737 - root - INFO - Plot for ARIMA model (no_sundays) saved at results\arima_no_sundays.png
+2025-05-21 00:55:03,185 - root - INFO - Plot for Linear Regression model (no_sundays) saved at results\linear_regression_no_sundays.png
+2025-05-21 00:55:03,614 - root - INFO - Plot for Dummy Model model (no_sundays) saved at results\dummy_model_no_sundays.png
+2025-05-21 00:55:03,614 - root - INFO - === Experiment completed: no_sundays ===
+2025-05-21 00:55:03,616 - root - INFO - === Starting experiment: no_obvious_features_no_sundays ===
+2025-05-21 00:55:03,616 - root - INFO - Features to exclude: ['Customers', 'Open']
+2025-05-21 00:55:03,616 - root - INFO - Excluding Sundays from analysis
+2025-05-21 00:55:03,616 - root - INFO - Preparing data
+2025-05-21 00:55:04,213 - root - INFO - Data preparation completed
+2025-05-21 00:55:04,213 - root - INFO - Features used in the model: ['Promo', 'SchoolHoliday', 'DayIsMonday', 'DayIsTuesday', 'DayIsWednesday', 'DayIsThursday', 'DayIsFriday', 'DayIsSaturday']
+2025-05-21 00:55:04,213 - root - INFO - Training ARIMA model
+2025-05-21 00:56:14,946 - root - INFO - ARIMA model trained
+2025-05-21 00:56:14,953 - root - INFO - RMSE for ARIMA model: 799.5552230870949
+2025-05-21 00:56:14,954 - root - INFO - Training Linear Regression model
+2025-05-21 00:56:14,955 - root - INFO - Linear Regression model trained
+2025-05-21 00:56:14,956 - root - INFO - RMSE for Linear Regression model: 694.1327152783209
+2025-05-21 00:56:14,956 - root - INFO - Training Dummy Model model
+2025-05-21 00:56:14,957 - root - INFO - Dummy Model model trained
+2025-05-21 00:56:14,957 - root - INFO - RMSE for Dummy Model model: 1485.101306377646
+2025-05-21 00:56:14,957 - root - INFO - Results for experiment: no_obvious_features_no_sundays
+2025-05-21 00:56:14,957 - root - INFO - ARIMA: RMSE = 799.5552230870949
+2025-05-21 00:56:14,957 - root - INFO - Linear Regression: RMSE = 694.1327152783209
+2025-05-21 00:56:14,957 - root - INFO - Dummy Model: RMSE = 1485.101306377646
+2025-05-21 00:56:15,416 - root - INFO - Plot for ARIMA model (no_obvious_features_no_sundays) saved at results\arima_no_obvious_features_no_sundays.png
+2025-05-21 00:56:15,873 - root - INFO - Plot for Linear Regression model (no_obvious_features_no_sundays) saved at results\linear_regression_no_obvious_features_no_sundays.png
+2025-05-21 00:56:16,329 - root - INFO - Plot for Dummy Model model (no_obvious_features_no_sundays) saved at results\dummy_model_no_obvious_features_no_sundays.png
+2025-05-21 00:56:16,329 - root - INFO - === Experiment completed: no_obvious_features_no_sundays ===
+2025-05-21 00:56:16,334 - root - INFO - === Summary of all experiments ===
+2025-05-21 00:56:16,334 - root - INFO - Experiment: baseline
+2025-05-21 00:56:16,335 - root - INFO -   ARIMA: RMSE = 303.1549908827959
+2025-05-21 00:56:16,335 - root - INFO -   Linear Regression: RMSE = 471.71991726079983
+2025-05-21 00:56:16,335 - root - INFO -   Dummy Model: RMSE = 2741.9519537766323
+2025-05-21 00:56:16,335 - root - INFO - Experiment: no_obvious_features
+2025-05-21 00:56:16,335 - root - INFO -   ARIMA: RMSE = 598.1832675921157
+2025-05-21 00:56:16,335 - root - INFO -   Linear Regression: RMSE = 687.489934353169
+2025-05-21 00:56:16,335 - root - INFO -   Dummy Model: RMSE = 2741.9519537766323
+2025-05-21 00:56:16,335 - root - INFO - Experiment: no_sundays
+2025-05-21 00:56:16,335 - root - INFO -   ARIMA: RMSE = 245.9722084736948
+2025-05-21 00:56:16,335 - root - INFO -   Linear Regression: RMSE = 495.5810564216659
+2025-05-21 00:56:16,335 - root - INFO -   Dummy Model: RMSE = 1485.101306377646
+2025-05-21 00:56:16,335 - root - INFO - Experiment: no_obvious_features_no_sundays
+2025-05-21 00:56:16,335 - root - INFO -   ARIMA: RMSE = 799.5552230870949
+2025-05-21 00:56:16,335 - root - INFO -   Linear Regression: RMSE = 694.1327152783209
+2025-05-21 00:56:16,335 - root - INFO -   Dummy Model: RMSE = 1485.101306377646
+2025-05-21 00:56:16,335 - root - INFO - === Model comparison across experiments ===
+2025-05-21 00:56:16,335 - root - INFO - Experiment: baseline - ARIMA is 55.60% better than Linear Regression
+2025-05-21 00:56:16,335 - root - INFO - Experiment: no_obvious_features - ARIMA is 14.93% better than Linear Regression
+2025-05-21 00:56:16,335 - root - INFO - Experiment: no_sundays - ARIMA is 101.48% better than Linear Regression
+2025-05-21 00:56:16,335 - root - INFO - Experiment: no_obvious_features_no_sundays - ARIMA is -13.19% better than Linear Regression
+2025-05-21 00:56:16,335 - root - INFO - Program execution completed
+2025-05-21 08:14:36,551 - root - INFO - Logging initialized. Logs will be saved to results\training.log
+2025-05-21 08:14:36,552 - root - INFO - Program execution started
+2025-05-21 08:14:36,554 - root - INFO - Running experiments
+2025-05-21 08:14:36,554 - root - INFO - === Starting experiment: baseline ===
+2025-05-21 08:14:36,554 - root - INFO - Preparing data
+2025-05-21 08:14:37,325 - root - INFO - Data preparation completed
+2025-05-21 08:14:37,325 - root - INFO - Features used in the model: ['Customers', 'Open', 'Promo', 'SchoolHoliday', 'DayIsMonday', 'DayIsTuesday', 'DayIsWednesday', 'DayIsThursday', 'DayIsFriday', 'DayIsSaturday', 'DayIsSunday']
+2025-05-21 08:14:37,325 - root - INFO - Training ARIMA model
+2025-05-21 08:16:18,769 - root - INFO - ARIMA model trained
+2025-05-21 08:16:18,779 - root - INFO - RMSE for ARIMA model: 303.1549908827959
+2025-05-21 08:16:18,779 - root - INFO - Training Linear Regression model
+2025-05-21 08:16:18,780 - root - INFO - Linear Regression model trained
+2025-05-21 08:16:18,782 - root - INFO - RMSE for Linear Regression model: 471.71991726079983
+2025-05-21 08:16:18,782 - root - INFO - Training Dummy Model model
+2025-05-21 08:16:18,783 - root - INFO - Dummy Model model trained
+2025-05-21 08:16:18,783 - root - INFO - RMSE for Dummy Model model: 2741.9519537766323
+2025-05-21 08:16:18,783 - root - INFO - Results for experiment: baseline
+2025-05-21 08:16:18,783 - root - INFO - ARIMA: RMSE = 303.1549908827959
+2025-05-21 08:16:18,783 - root - INFO - Linear Regression: RMSE = 471.71991726079983
+2025-05-21 08:16:18,783 - root - INFO - Dummy Model: RMSE = 2741.9519537766323
+2025-05-21 08:16:19,372 - root - INFO - Plot for ARIMA model (baseline) saved at results\arima_baseline.png
+2025-05-21 08:16:19,862 - root - INFO - Plot for Linear Regression model (baseline) saved at results\linear_regression_baseline.png
+2025-05-21 08:16:20,364 - root - INFO - Plot for Dummy Model model (baseline) saved at results\dummy_model_baseline.png
+2025-05-21 08:16:20,364 - root - INFO - === Experiment completed: baseline ===
+2025-05-21 08:16:20,372 - root - INFO - === Starting experiment: no_obvious_features ===
+2025-05-21 08:16:20,373 - root - INFO - Features to exclude: ['Customers', 'Open']
+2025-05-21 08:16:20,373 - root - INFO - Preparing data
+2025-05-21 08:16:21,064 - root - INFO - Data preparation completed
+2025-05-21 08:16:21,064 - root - INFO - Features used in the model: ['Promo', 'SchoolHoliday', 'DayIsMonday', 'DayIsTuesday', 'DayIsWednesday', 'DayIsThursday', 'DayIsFriday', 'DayIsSaturday', 'DayIsSunday']
+2025-05-21 08:16:21,064 - root - INFO - Training ARIMA model
+2025-05-21 08:16:46,966 - root - INFO - ARIMA model trained
+2025-05-21 08:16:46,977 - root - INFO - RMSE for ARIMA model: 598.1832675921157
+2025-05-21 08:16:46,977 - root - INFO - Training Linear Regression model
+2025-05-21 08:16:46,979 - root - INFO - Linear Regression model trained
+2025-05-21 08:16:46,981 - root - INFO - RMSE for Linear Regression model: 687.489934353169
+2025-05-21 08:16:46,981 - root - INFO - Training Dummy Model model
+2025-05-21 08:16:46,981 - root - INFO - Dummy Model model trained
+2025-05-21 08:16:46,982 - root - INFO - RMSE for Dummy Model model: 2741.9519537766323
+2025-05-21 08:16:46,982 - root - INFO - Results for experiment: no_obvious_features
+2025-05-21 08:16:46,982 - root - INFO - ARIMA: RMSE = 598.1832675921157
+2025-05-21 08:16:46,982 - root - INFO - Linear Regression: RMSE = 687.489934353169
+2025-05-21 08:16:46,982 - root - INFO - Dummy Model: RMSE = 2741.9519537766323
+2025-05-21 08:16:47,515 - root - INFO - Plot for ARIMA model (no_obvious_features) saved at results\arima_no_obvious_features.png
+2025-05-21 08:16:48,002 - root - INFO - Plot for Linear Regression model (no_obvious_features) saved at results\linear_regression_no_obvious_features.png
+2025-05-21 08:16:48,522 - root - INFO - Plot for Dummy Model model (no_obvious_features) saved at results\dummy_model_no_obvious_features.png
+2025-05-21 08:16:48,522 - root - INFO - === Experiment completed: no_obvious_features ===
+2025-05-21 08:16:48,525 - root - INFO - === Starting experiment: no_sundays ===
+2025-05-21 08:16:48,526 - root - INFO - Excluding Sundays from analysis
+2025-05-21 08:16:48,526 - root - INFO - Preparing data
+2025-05-21 08:16:49,178 - root - INFO - Data preparation completed
+2025-05-21 08:16:49,178 - root - INFO - Features used in the model: ['Customers', 'Open', 'Promo', 'SchoolHoliday', 'DayIsMonday', 'DayIsTuesday', 'DayIsWednesday', 'DayIsThursday', 'DayIsFriday', 'DayIsSaturday']
+2025-05-21 08:16:49,178 - root - INFO - Training ARIMA model
+2025-05-21 08:17:49,058 - root - INFO - ARIMA model trained
+2025-05-21 08:17:49,066 - root - INFO - RMSE for ARIMA model: 245.9722084736948
+2025-05-21 08:17:49,067 - root - INFO - Training Linear Regression model
+2025-05-21 08:17:49,069 - root - INFO - Linear Regression model trained
+2025-05-21 08:17:49,071 - root - INFO - RMSE for Linear Regression model: 495.5810564216659
+2025-05-21 08:17:49,071 - root - INFO - Training Dummy Model model
+2025-05-21 08:17:49,071 - root - INFO - Dummy Model model trained
+2025-05-21 08:17:49,072 - root - INFO - RMSE for Dummy Model model: 1485.101306377646
+2025-05-21 08:17:49,072 - root - INFO - Results for experiment: no_sundays
+2025-05-21 08:17:49,072 - root - INFO - ARIMA: RMSE = 245.9722084736948
+2025-05-21 08:17:49,072 - root - INFO - Linear Regression: RMSE = 495.5810564216659
+2025-05-21 08:17:49,072 - root - INFO - Dummy Model: RMSE = 1485.101306377646
+2025-05-21 08:17:49,604 - root - INFO - Plot for ARIMA model (no_sundays) saved at results\arima_no_sundays.png
+2025-05-21 08:17:50,157 - root - INFO - Plot for Linear Regression model (no_sundays) saved at results\linear_regression_no_sundays.png
+2025-05-21 08:17:50,695 - root - INFO - Plot for Dummy Model model (no_sundays) saved at results\dummy_model_no_sundays.png
+2025-05-21 08:17:50,695 - root - INFO - === Experiment completed: no_sundays ===
+2025-05-21 08:17:50,698 - root - INFO - === Starting experiment: no_obvious_features_no_sundays ===
+2025-05-21 08:17:50,698 - root - INFO - Features to exclude: ['Customers', 'Open']
+2025-05-21 08:17:50,698 - root - INFO - Excluding Sundays from analysis
+2025-05-21 08:17:50,698 - root - INFO - Preparing data
+2025-05-21 08:17:51,546 - root - INFO - Data preparation completed
+2025-05-21 08:17:51,546 - root - INFO - Features used in the model: ['Promo', 'SchoolHoliday', 'DayIsMonday', 'DayIsTuesday', 'DayIsWednesday', 'DayIsThursday', 'DayIsFriday', 'DayIsSaturday']
+2025-05-21 08:17:51,546 - root - INFO - Training ARIMA model
+2025-05-21 08:19:23,839 - root - INFO - ARIMA model trained
+2025-05-21 08:19:23,848 - root - INFO - RMSE for ARIMA model: 799.5552230870949
+2025-05-21 08:19:23,849 - root - INFO - Training Linear Regression model
+2025-05-21 08:19:23,851 - root - INFO - Linear Regression model trained
+2025-05-21 08:19:23,853 - root - INFO - RMSE for Linear Regression model: 694.1327152783209
+2025-05-21 08:19:23,853 - root - INFO - Training Dummy Model model
+2025-05-21 08:19:23,853 - root - INFO - Dummy Model model trained
+2025-05-21 08:19:23,854 - root - INFO - RMSE for Dummy Model model: 1485.101306377646
+2025-05-21 08:19:23,854 - root - INFO - Results for experiment: no_obvious_features_no_sundays
+2025-05-21 08:19:23,854 - root - INFO - ARIMA: RMSE = 799.5552230870949
+2025-05-21 08:19:23,854 - root - INFO - Linear Regression: RMSE = 694.1327152783209
+2025-05-21 08:19:23,854 - root - INFO - Dummy Model: RMSE = 1485.101306377646
+2025-05-21 08:19:24,623 - root - INFO - Plot for ARIMA model (no_obvious_features_no_sundays) saved at results\arima_no_obvious_features_no_sundays.png
+2025-05-21 08:19:25,381 - root - INFO - Plot for Linear Regression model (no_obvious_features_no_sundays) saved at results\linear_regression_no_obvious_features_no_sundays.png
+2025-05-21 08:19:25,996 - root - INFO - Plot for Dummy Model model (no_obvious_features_no_sundays) saved at results\dummy_model_no_obvious_features_no_sundays.png
+2025-05-21 08:19:25,996 - root - INFO - === Experiment completed: no_obvious_features_no_sundays ===
+2025-05-21 08:19:26,003 - root - INFO - === Summary of all experiments ===
+2025-05-21 08:19:26,003 - root - INFO - Experiment: baseline
+2025-05-21 08:19:26,003 - root - INFO -   ARIMA: RMSE = 303.1549908827959
+2025-05-21 08:19:26,003 - root - INFO -   Linear Regression: RMSE = 471.71991726079983
+2025-05-21 08:19:26,003 - root - INFO -   Dummy Model: RMSE = 2741.9519537766323
+2025-05-21 08:19:26,003 - root - INFO - Experiment: no_obvious_features
+2025-05-21 08:19:26,003 - root - INFO -   ARIMA: RMSE = 598.1832675921157
+2025-05-21 08:19:26,003 - root - INFO -   Linear Regression: RMSE = 687.489934353169
+2025-05-21 08:19:26,003 - root - INFO -   Dummy Model: RMSE = 2741.9519537766323
+2025-05-21 08:19:26,004 - root - INFO - Experiment: no_sundays
+2025-05-21 08:19:26,004 - root - INFO -   ARIMA: RMSE = 245.9722084736948
+2025-05-21 08:19:26,004 - root - INFO -   Linear Regression: RMSE = 495.5810564216659
+2025-05-21 08:19:26,004 - root - INFO -   Dummy Model: RMSE = 1485.101306377646
+2025-05-21 08:19:26,004 - root - INFO - Experiment: no_obvious_features_no_sundays
+2025-05-21 08:19:26,004 - root - INFO -   ARIMA: RMSE = 799.5552230870949
+2025-05-21 08:19:26,004 - root - INFO -   Linear Regression: RMSE = 694.1327152783209
+2025-05-21 08:19:26,004 - root - INFO -   Dummy Model: RMSE = 1485.101306377646
+2025-05-21 08:19:26,004 - root - INFO - === Model comparison across experiments ===
+2025-05-21 08:19:26,004 - root - INFO - Experiment: baseline - ARIMA is 55.60% better than Linear Regression
+2025-05-21 08:19:26,004 - root - INFO - Experiment: no_obvious_features - ARIMA is 14.93% better than Linear Regression
+2025-05-21 08:19:26,004 - root - INFO - Experiment: no_sundays - ARIMA is 101.48% better than Linear Regression
+2025-05-21 08:19:26,004 - root - INFO - Experiment: no_obvious_features_no_sundays - ARIMA is -13.19% better than Linear Regression
+2025-05-21 08:19:26,004 - root - INFO - Program execution completed

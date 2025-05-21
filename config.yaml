@@ -1,0 +1,30 @@
+data_path: '../data/train.csv'
+
+arima_params:
+  m: 7
+  max_p: 5
+  max_d: 2
+  max_q: 5
+  max_P: 2
+  max_D: 1
+  max_Q: 2
+  seasonal: true
+  suppress_warnings: true
+
+linear_regression_params:
+  fit_intercept: true
+
+dummy_model_params:
+  strategy: 'mean'  # Options: 'mean', 'median', 'constant'
+  constant_value: null  # Used if strategy is 'constant'
+
+data_params:
+  y_col: 'Sales'
+  prc_samples_for_test: 0.05
+  numeric_mappings:
+    StateHoliday: state_holiday_mapping
+
+plot_params:
+  plot_file_name: 'arima_test_predictions.png'
+  title: 'Predictions vs Actual'
+  figsize: [12, 6]
