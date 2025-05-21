@@ -2,92 +2,219 @@
 
 ## Project Overview
 
-The goal of this project was to develop and train a model that predicts the average daily sales values for Rossmann stores based on data from the week preceding the forecast date. The project is organized into several folders:
+This project aims to predict daily sales for Rossmann stores across Germany using time series analysis techniques. Accurate sales forecasts enable store managers to optimize staff scheduling, inventory management, and enhance customer satisfaction.
 
-- **scripts**: This folder contains the main scripts for training and prediction.
-  - `main.py`: Trains the best model identified during experimentation, generates predictions and creates plots.
-  - `train_models.py`: Trains various models, from which the best-performing one was selected for `main.py`. The performance of all models is documented in the `model_results.md` file.
-  - `decompose_time_series.py`: Decomposes the time series data, revealing weekly seasonality. This information was used in the ARIMA model, one of the models evaluated in `train_models.py`.
+We implement an **ARIMA** ([AutoRegressive Integrated Moving Average](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average)) model to perform the forecasting and compare its performance with a Linear Regression model and a Dummy model that predicts the mean sales.
 
-- **src**: This folder includes utility functions.
-  - `data.py`: Contains functions for preparing the data for analysis.
-  - `plots.py`: Contains functions for generating plots.
+## Dataset Description
 
-- **tests**: This folder includes tests for the functions in `data.py`.
+The dataset is sourced from the [Rossmann Store Sales competition on Kaggle](https://www.kaggle.com/c/rossmann-store-sales). It contains historical sales data for over 1,000 Rossmann stores, including information such as sales, customers, promotions, and store details.
 
-- **results**: This folder includes saved plots, a markdown file comparing model performances, and the saved best-trained model.
+## Time Series Forecasting with ARIMA
 
-## How to Run the Project
+The **[ARIMA](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average)** (AutoRegressive Integrated Moving Average) model is a powerful statistical method for time series forecasting. It combines three components:
 
-1. **Clone the Project**: Clone the repository to your local machine.
+- **[AutoRegression (AR)](https://www.statisticshowto.com/autoregressive-model/)**: Uses the relationship between an observation and a number of lagged observations.
+- **[Integrated (I)](https://www.statisticshowto.com/integrated-time-series/)**: Involves differencing of observations to make the time series stationary.
+- **[Moving Average (MA)](https://www.statisticshowto.com/moving-average/)**: Uses dependency between an observation and residual errors from moving average models applied to lagged observations.
+
+For more information on ARIMA models, refer to this [comprehensive guide](https://machinelearningmastery.com/arima-for-time-series-forecasting-with-python/).
+
+### Key Concepts:
+
+- **[Stationarity](https://www.statisticshowto.com/stationary-process/)**: A time series is stationary if its statistical properties like mean and variance are constant over time.
+- **[Differencing](https://otexts.com/fpp2/differencing.html)**: A method of transforming a time series dataset by subtracting the previous observation from the current observation.
+- **[Seasonality](https://en.wikipedia.org/wiki/Seasonality)**: Patterns that repeat at regular intervals due to seasonal factors.
+
+
+## Project Structure
+
+```
+rossmann-time-series-analysis/
+│
+├── config/
+│   └── config.yaml
+│
+├── models/
+│   ├── base_model.py
+│   ├── arima_model.py
+│   ├── linear_regression_model.py
+│   └── dummy_model.py
+│
+├── src/
+│   ├── data.py
+│   ├── plots.py
+│   ├── setup_logging.py
+│   └── constants.py
+│
+├── tests/
+│   ├── test_data.py
+│   ├── test_models.py
+│   └── test_plots.py
+│
+├── results/
+│   └── arima_test_predictions.png
+│
+├── main.py
+├── requirements.txt
+└── README.md
+```
+
+## Installation
+
+To run this project, ensure you have Python 3.7 or higher installed. Follow these steps to set up the environment:
+
+1. **Clone the repository**:
+
    ```bash
-   git clone https://github.com/raodz/Rossmann-Time-Series-Analysis.git
+   git clone https://github.com/yourusername/rossmann-time-series-analysis.git
+   cd rossmann-time-series-analysis
    ```
 
-2. **Install Dependencies**: Ensure you have all necessary packages installed. You can use `requirements.txt` if provided or install packages manually:
+2. **Create a virtual environment** (recommended):
+
+   ```bash
+   python -m venv venv
+   ```
+
+3. **Activate the virtual environment**:
+
+   - On Windows:
+
+     ```bash
+     venv\Scripts\activate
+     ```
+
+   - On macOS/Linux:
+
+     ```bash
+     source venv/bin/activate
+     ```
+
+4. **Install the required packages**:
+
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Add Data**: Create a folder named `data` in the project directory and add the `train.csv` file. You can download the dataset from [Kaggle](https://www.kaggle.com/competitions/rossmann-store-sales).
+5. **Download the dataset** from [Kaggle](https://www.kaggle.com/c/rossmann-store-sales/data) and place it in the `data/` directory.
 
-4. **Train Models**: Run `train_models.py` to train and evaluate different models. This script will save the results in `model_results.md`.
+6. **Run the main script**:
+
    ```bash
-   python scripts/train_models.py
+   python main.py
    ```
 
-5. **Decompose Time Series**: Run `decompose_time_series.py` to perform and visualize time series decomposition.
-   ```bash
-   python scripts/decompose_time_series.py
-   ```
+## Configuration
 
-6. **Generate Final Predictions**: Run `main.py` to train the selected best model, generate predictions, and create plots.
-   ```bash
-   python scripts/main.py
-   ```
+The project uses a `config/config.yaml` file to store configurable parameters, allowing easy adjustments without modifying the codebase directly. Key configurations include:
 
-## Results and Conclusions
+- **Data Paths**: Specify the path to the dataset (`data_path`) and where to save results (`results_dir_name`).
+- **Model Parameters**:
+  - **ARIMA Parameters** (`arima_params`): Settings for the ARIMA model, such as seasonal periods (`m`), and maximum orders (`max_p`, `max_d`, `max_q`).
+  - **Linear Regression Parameters** (`linear_regression_params`): Options like `fit_intercept` and `normalize`.
+  - **Dummy Model Parameters** (`dummy_model_params`): Strategy for the Dummy model, e.g., predicting the mean or median.
+- **Plotting Options** (`plot_params`): Customize plot titles (`title`) and figure sizes (`figsize`).
 
-### Model Performance
+## Data Preprocessing
 
-Despite considering seasonality, the ARIMA model did not yield the expected results. The Lasso model outperformed ARIMA significantly and was therefore used in `main.py` for final predictions.
+Data preprocessing involves cleaning and transforming raw data to make it suitable for modeling. The steps include:
 
-### Potential Issues with ARIMA
+- **Data Loading**: Reading the dataset from CSV files.
+- **Data Cleaning**:
+  - Handling missing values.
+  - Encoding categorical variables.
+- **Feature Engineering**:
+  - Aggregating data at the required granularity.
+  - Creating new features like moving averages or lag features.
+- **Train-Test Split**: Splitting the data into training and testing sets based on a specified percentage.
 
-The ARIMA model might have underperformed because it considered only one type of seasonality (weekly), while the data exhibited both weekly and yearly seasonality. This dual-seasonality is evident in the trend plots saved in `decomposition_plot.png` in the `results` folder.
+The preprocessing is implemented in `src/data.py`.
 
-### Why Lasso Performed Well
+## Models Implemented
 
-Lasso Regression (Least Absolute Shrinkage and Selection Operator) can handle high-dimensional data effectively and perform feature selection by driving some coefficients to zero. This ability to eliminate irrelevant features likely helped in reducing overfitting and improving the model's predictive performance, making it a better choice for this time series prediction task.
+### BaseModel
 
-### Summary of Key Findings
+An abstract base class `BaseModel` is defined in `models/base_model.py`, providing a consistent interface for all models:
 
-- **ARIMA**: Struggled with capturing the complexities of the sales data due to its single-seasonality focus.
-- **Lasso Regression**: Excelled by selecting the most relevant features and mitigating overfitting, thus delivering better predictions.
+- `fit(X_train, y_train)`
+- `predict(X_test)`
+- `evaluate(X_test, y_test)`
 
-## Folder Structure
+All models inherit from `BaseModel`, ensuring consistent method signatures and enabling polymorphism.
 
-```bash
-Rossmann-Time-Series-Analysis/
-├── scripts/
-│   ├── main.py
-│   ├── train_models.py
-│   ├── decompose_time_series.py
-├── src/
-│   ├── data.py
-│   ├── plots.py
-├── tests/
-│   ├── test_get_X_y.py
-│   ├── test_is_data_full.py
-│   ├── test_map_into_numeric.py
-│   ├── test_preprocess_data.py
-│   ├── test_sliding_window.py
-├── results/
-│   ├── decomposition_plot.png
-│   ├── model_results.md
-│   ├── lasso_model.joblib
-│   ├── test_predictions.png
-│   ├── train_test_predictions.png
-```
+### ARIMAModel
 
-By following this structure and methodology, the project systematically identifies the best model for predicting Rossmann store sales and provides insights into the underlying data patterns, enhancing the accuracy and reliability of the forecasts.
+Located in `models/arima_model.py`, this model implements the ARIMA forecasting method using the `statsmodels` library. It automatically determines the optimal parameters using the `pmdarima` library's `auto_arima` function.
+
+### LinearRegressionModel
+
+Implemented in `models/linear_regression_model.py`, this model uses scikit-learn's `LinearRegression` to perform regression on the time series data. While not specifically designed for time series data, it serves as a baseline for comparison.
+
+### DummyModel
+
+Found in `models/dummy_model.py`, this model uses scikit-learn's `DummyRegressor` to make predictions using simple strategies like predicting the mean value of the training data.
+
+## Plotting Function
+
+The `plot_test_predictions` function in `src/plots.py` is used to visualize the actual vs. predicted values for the test set. It uses Matplotlib to generate the plots.
+
+Parameters:
+
+- `y_test`: Actual values.
+- `y_pred`: Predicted values.
+- `save_path`: File path to save the plot.
+- `title`: Plot title (configured in `config.yaml`).
+- `figsize`: Figure size (configured in `config.yaml`).
+
+## Logging and Testing
+
+The project includes logging to track the execution flow and debug issues easily. Logs are saved to a file and output to the console, configured via `src/setup_logging.py`.
+
+Unit tests are provided in the `tests/` directory to ensure the reliability and correctness of the data preprocessing, models, and plotting functions.
+
+## Results
+
+After training and evaluating the models, the following RMSE (Root Mean Square Error) values were obtained:
+
+| Model               | RMSE |
+|---------------------|------|
+| **ARIMA**           | 440.23  |
+| Linear Regression   | 626.99  |
+| Dummy Model (Mean)  | 813.10  |
+
+The ARIMA model achieved an RMSE of **440.23**, indicating its effectiveness in capturing the underlying patterns in the time series data.
+
+### ARIMA Model Predictions
+
+![ARIMA Model Predictions vs Actual](results/arima_test_predictions.png)
+
+*An example plot showing the ARIMA model's predictions versus the actual sales.*
+
+## Conclusion
+
+The ARIMA model outperformed the Linear Regression and Dummy models in forecasting daily sales for Rossmann stores. This demonstrates the strength of time series-specific models like ARIMA in capturing temporal dependencies and seasonality in data.
+
+**Key takeaways:**
+
+- **ARIMA's Strength**: ARIMA effectively models the time series data, accounting for trends and seasonality.
+- **Baseline Comparisons**: The Dummy model and Linear Regression model provide baselines to assess the performance of the ARIMA model.
+- **Model Selection**: Linear Regression may not be optimal for time series data without incorporating time-dependent features.
+
+**Future Improvements:**
+
+- **Include Exogenous Variables**: Incorporating additional variables like promotions, holidays, and competitor information could further improve model performance.
+- **Advanced Models**: Experimenting with models like SARIMAX, Prophet, or LSTM neural networks.
+- **Hyperparameter Tuning**: Further tuning of model parameters using grid search or Bayesian optimization.
+- **Cross-Validation**: Implementing time series cross-validation techniques to better assess model performance.
+
+## References
+
+- [Rossmann Store Sales Competition - Kaggle](https://www.kaggle.com/c/rossmann-store-sales)
+- [ARIMA Model - Wikipedia](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average)
+- [Time Series Forecasting with ARIMA - Machine Learning Mastery](https://machinelearningmastery.com/arima-for-time-series-forecasting-with-python/)
+- [Stationarity in Time Series](https://www.statisticshowto.com/stationary-process/)
+- [Differencing in Time Series](https://otexts.com/fpp2/differencing.html)
+- [Seasonality - Wikipedia](https://en.wikipedia.org/wiki/Seasonality)
+- [Scikit-learn DummyRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.dummy.DummyRegressor.html)
+- [Scikit-learn LinearRegression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html)
