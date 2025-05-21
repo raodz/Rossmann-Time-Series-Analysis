@@ -1,5 +1,6 @@
-from models.base_model import BaseModel
 from sklearn.dummy import DummyRegressor
+
+from src.models import BaseModel
 
 
 class DummyModel(BaseModel):
